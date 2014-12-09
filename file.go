@@ -3,7 +3,6 @@ package file
 import (
  "os"
  "os/exec"
- "errors"
 )
 
 func Exists(f string) bool {
@@ -34,5 +33,5 @@ func Move(oldpath, newpath string) error {
 	if Exists(newpath) && !Exists(oldpath) {
 		return nil
 	}
-	return errors.New(`Unable to move ` + oldpath)
+	return err
 }
