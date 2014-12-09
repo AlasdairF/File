@@ -1,6 +1,10 @@
 package file
 
-import "os"
+import (
+ "os"
+ "os/exec"
+ "errors"
+)
 
 func Exists(f string) bool {
 	if _, err := os.Stat(f); err == nil {
@@ -16,4 +20,19 @@ func Size(f string) (int, error) {
 		return 0, err
 	}
 	return int(v.Size()), nil
+}
+
+func Remove(f string) error {
+	return os.Remove(f)
+}
+
+func Move(oldpath, newpath string) error {
+	if err := os.Rename(oldpath, newpath string); err == nil {
+		return nil
+	}
+	os.Exec(`mv`, oldpath, newpath).Run()
+	if Exists(newpath) && !Exists(oldpath) {
+		return nil
+	}
+	return errors.New(`Unable to move ` + oldpath)
 }
