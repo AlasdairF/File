@@ -26,7 +26,8 @@ func Remove(f string) error {
 }
 
 func Move(oldpath, newpath string) error {
-	if err := os.Rename(oldpath, newpath); err == nil {
+	err := os.Rename(oldpath, newpath)
+	if err == nil {
 		return nil
 	}
 	exec.Command(`mv`, oldpath, newpath).Run()
