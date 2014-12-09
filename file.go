@@ -30,7 +30,7 @@ func Move(oldpath, newpath string) error {
 	if err := os.Rename(oldpath, newpath); err == nil {
 		return nil
 	}
-	os.Exec(`mv`, oldpath, newpath).Run()
+	exec.Command(`mv`, oldpath, newpath).Run()
 	if Exists(newpath) && !Exists(oldpath) {
 		return nil
 	}
