@@ -36,3 +36,29 @@ func Move(oldpath, newpath string) error {
 	}
 	return err
 }
+
+func ReadDir(dirname string) ([]os.FileInfo, error) {
+	f, err := os.Open(dirname)
+	if err != nil {
+		return nil, err
+	}
+	lst, err := f.Readdir(-1)
+	f.Close()
+	if err != nil {
+		return nil, err
+	}
+	return lst, nil
+}
+
+func CountDir(dirname string) (int, error) {
+	f, err := os.Open(dirname)
+	if err != nil {
+		return 0, err
+	}
+	lst, err := f.Readdir(-1)
+	f.Close()
+	if err != nil {
+		return 0, err
+	}
+	return len(lst), nil
+}
